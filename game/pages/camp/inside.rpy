@@ -31,6 +31,6 @@ label camp_inside_sleep:
                 if player.needs['sleep'] > 80:
                     "Você não se sente cansado o suficiente para dormir!"
                 else:
-                    $ player.change_needs(hunger=-20, thirst=-30, sleep=+45, sanity=+10)
+                    $ player.change_needs(hunger=-20, thirst=-30, sleep=+45, sanity=+2)
                     $ world_state.advance_time(hours=4)
                     "Você dormiu e recuperou suas energias!"
