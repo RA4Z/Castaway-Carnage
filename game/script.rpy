@@ -1,14 +1,6 @@
-﻿# The script of the game goes in this file.
-
-# Declare characters used by this game. The color argument colorizes the
-# name of the character.
-
-define e = Character("Eileen")
-
-init python:
+﻿init python:
+    world_state = WorldState(8)
     player = Player(name="Viajante")
-
-# The game starts here.
 
 label start:
     python:

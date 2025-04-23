@@ -23,8 +23,8 @@ label camp_inside_sleep:
                     "Você não sente necessidade de descansar no momento!"
                 else:
                     "Você fez um breve descanso"
-                    # AVANÇAR UMA HORA 
-                    $ player.change_needs(hunger=-2, thirst=-3, sleep=+10)
+                    $ player.change_needs(hunger=-4, thirst=-7.5, sleep=+10)
+                    $ world_state.advance_time(hours=1)
 
 
             "Dormir":
@@ -32,5 +32,5 @@ label camp_inside_sleep:
                     "Você não se sente cansado o suficiente para dormir!"
                 else:
                     $ player.change_needs(hunger=-20, thirst=-30, sleep=+45, sanity=+10)
-                    # AVANÇAR QUATRO HORAS 
+                    $ world_state.advance_time(hours=4)
                     "Você dormiu e recuperou suas energias!"
