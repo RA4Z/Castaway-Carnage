@@ -15,7 +15,7 @@ label camp_inside_sleep:
         menu:
             "Você está de frente para sua cama"
             "Sair":
-                "Você sai de frente de sua cama"
+                "Você saiu da frente de sua cama"
                 $ bedroom_visible = False
 
             "Descansar brevemente":
