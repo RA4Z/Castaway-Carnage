@@ -44,13 +44,19 @@ python early:
                 self.hp = max_hp
             # Você pode adicionar lógica aqui para verificar se o jogador morreu (hp <= 0)
 
-        def add_item(self, item_name):
-            """Adiciona um item ao inventário."""
-            if item_name not in self.inventory: # Evita duplicatas se não quiser
-                self.inventory.append(item_name)
-                renpy.notify(f"Adicionado: {item_name}") # Feedback visual opcional
-            else:
-                renpy.notify(f"Você já tem {item_name}.") # Ou aumente a quantidade se usar um dicionário
+        def add_item(self, item_name, qty):
+            found_item = False
+            for item in self.inventory:
+                if item['name'] == item_name: # Check if the item is present
+                    item['qty'] += qty
+                    found_item = True
+                    renpy.notify(f"{qty} {item_name} adicionado com sucesso ao inventário!") # Feedback visual opcional
+                    renpy.pause(1.5)  # Wait for 0.5 seconds
+                    break # Stop searching once the item is found
+            if not found_item:
+                self.inventory.append({'name': item_name, 'qty': qty})
+                renpy.notify(f"{qty} {item_name} adicionado com sucesso ao inventário!") # Feedback visual opcional
+                renpy.pause(1.5)  # Wait for 0.5 seconds
 
         def remove_item(self, item_name):
             """Remove um item do inventário."""
