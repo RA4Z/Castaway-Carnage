@@ -18,9 +18,19 @@ label camp_inside_sleep:
                 "Você sai de frente de sua cama"
                 $ bedroom_visible = False
 
+            "Descansar brevemente":
+                if player.needs['sleep'] == 100:
+                    "Você não sente necessidade de descansar no momento!"
+                else:
+                    "Você fez um breve descanso"
+                    # AVANÇAR UMA HORA 
+                    $ player.change_needs(hunger=-2, thirst=-3, sleep=+10)
+
+
             "Dormir":
                 if player.needs['sleep'] > 80:
                     "Você não se sente cansado o suficiente para dormir!"
                 else:
-                    $ player.change_needs(sleep=+50)
+                    $ player.change_needs(hunger=-20, thirst=-30, sleep=+45, sanity=+10)
+                    # AVANÇAR QUATRO HORAS 
                     "Você dormiu e recuperou suas energias!"
