@@ -3,36 +3,45 @@ python early:
         """
         Representa o personagem do jogador com seus atributos básicos.
         """
-        def __init__(self, name="Protagonista", hp=100, max_hp=100, gold=0):
-            """
-            Inicializa um novo jogador.
-            Args:
-                name (str): O nome inicial do jogador.
-                hp (int): Pontos de vida atuais.
-                max_hp (int): Pontos de vida máximos.
-                gold (int): Quantidade inicial de ouro/dinheiro.
-            """
+        def __init__(self, name="Protagonista"):
             self.name = name
-            self.hp = hp
-            self.max_hp = max_hp
-            self.gold = gold
+            self.hp = 100
+            self.stats = {
+                "strength": 5
+            }
+            self.needs = {
+                # Necessidades básicas do jogo
+                "hunger": 100,
+                "thirst": 100,
+                "sleep": 100,
+                "sanity": 100,
+            }
+            self.experience_points = {
+                # Quantidade de pontos de experiência atual e para o próximo nível
+                "strength_next_level": (self.stats["strength"] + 1) * 10,
+                "strength_xp": 0,
+            }
             self.inventory = [] # Lista para guardar itens (nomes como strings, por exemplo)
-            # Adicione outros atributos que precisar: mana, força, inteligência, etc.
-            # self.strength = 10
-            # self.intelligence = 10
+
+        def change_needs(self, hunger=0, thirst=0, sleep=0, sanity=0):
+            self.needs['hunger'] += hunger
+            self.needs['thirst'] += thirst
+            self.needs['sleep'] += sleep
+            self.needs['sanity'] += sanity
+
+            # Limit needs to 100
+            self.needs['hunger'] = min(self.needs['hunger'], 100)
+            self.needs['thirst'] = min(self.needs['thirst'], 100)
+            self.needs['sleep'] = min(self.needs['sleep'], 100)
+            self.needs['sanity'] = min(self.needs['sanity'], 100)
 
         def change_hp(self, amount):
-            """
-            Altera os pontos de vida do jogador.
-            Garante que o HP não fique abaixo de 0 ou acima do max_hp.
-            Args:
-                amount (int): A quantidade a ser adicionada (positiva para curar, negativa para dano).
-            """
+            max_hp = self.stats["strength"] * 5
             self.hp += amount
             if self.hp < 0:
                 self.hp = 0
-            elif self.hp > self.max_hp:
-                self.hp = self.max_hp
+            elif self.hp > max_hp:
+                self.hp = max_hp
             # Você pode adicionar lógica aqui para verificar se o jogador morreu (hp <= 0)
 
         def add_item(self, item_name):
@@ -57,12 +66,14 @@ python early:
             """Verifica se o jogador possui um item específico."""
             return item_name in self.inventory
 
-        def change_gold(self, amount):
-            """Altera a quantidade de ouro do jogador."""
-            self.gold += amount
-            if self.gold < 0:
-                self.gold = 0 # Impede ouro negativo, a menos que seja intencional
+        # Regra para adicionar pontos de experiência, fazer a verificação e subir o nível da respectiva habilidade
+        def lvl_up_skills(self, skill, xp):
+            self.experience_points[f"{skill}_xp"] += xp
+            if self.experience_points[f"{skill}_xp"] >= self.experience_points[f"{skill}_next_level"]:
+                self.experience_points[f"{skill}_xp"] = self.experience_points[f"{skill}_xp"] - self.experience_points[f"{skill}_next_level"]
+                self.stats[skill] += 1
+                self.experience_points[f"{skill}_next_level"] = (self.stats[skill] + 1) * 10
 
         # Método opcional para facilitar a visualização (debug)
         def __str__(self):
-            return f"Player(Nome: {self.name}, HP: {self.hp}/{self.max_hp}, Gold: {self.gold}, Inventário: {self.inventory})"
+            return f"Player(Nome: {self.name}, HP: {self.hp}/{self.max_hp}, Inventário: {self.inventory})"

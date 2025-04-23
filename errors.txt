@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 9: invalid syntax
-    default player = Player(name="Viajante", hp=80, max_hp=100, gold=50)
-             ^
+File "game/pages/camp/outside.rpy", line 14: reached end of line when expecting ':'.
+    if player.stats['sleep'] > 30
+                                 ^
+
+File "game/pages/camp/outside.rpy", line 21: expected statement.
+    else:
+        ^
 
 Ren'Py Version: Ren'Py 8.3.3.24111502
-Wed Apr 23 12:24:20 2025
+Wed Apr 23 13:46:18 2025

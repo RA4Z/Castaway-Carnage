@@ -1,0 +1,32 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 18, in script call
+    call camp_outside
+  File "game/pages/camp/outside.rpy", line 14, in script
+    if player.stats['sleep'] > 30:
+  File "game/pages/camp/outside.rpy", line 14, in <module>
+    if player.stats['sleep'] > 30:
+KeyError: 'sleep'
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 18, in script call
+    call camp_outside
+  File "game/pages/camp/outside.rpy", line 14, in script
+    if player.stats['sleep'] > 30:
+  File "C:\Users\robertn\Documents\renpy-8.3.3-sdk\renpy\ast.py", line 1843, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\robertn\Documents\renpy-8.3.3-sdk\renpy\python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\robertn\Documents\renpy-8.3.3-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/pages/camp/outside.rpy", line 14, in <module>
+    if player.stats['sleep'] > 30:
+KeyError: 'sleep'
+
+Windows-10-10.0.22621 AMD64
+Ren'Py 8.3.3.24111502
+Castaway Carnage 1.0
+Wed Apr 23 13:46:34 2025

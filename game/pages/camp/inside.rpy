@@ -1,20 +1,26 @@
 label camp_inside:
     "Você entra no acampamento cambaleando desajeitadamente"
-    menu:
-        "Você está dentro de seu abrigo"
-        "Sair do abrigo":
-            jump camp_outside
-        
-        "Ir para a cama":
-            jump camp_inside_sleep
+    while True:
+        menu:
+            "Você está dentro de seu abrigo"
+            "Sair do abrigo":
+                jump camp_outside
+            
+            "Ir para a cama":
+                call camp_inside_sleep
 
 label camp_inside_sleep:
-    menu:
-        "Você está de frente para sua cama"
-        "Sair":
-            jump camp_inside
+    $ bedroom_visible = True
+    while bedroom_visible:
+        menu:
+            "Você está de frente para sua cama"
+            "Sair":
+                "Você sai de frente de sua cama"
+                $ bedroom_visible = False
 
-        "Dormir":
-            "Você dormiu"
-
-    jump camp_inside_sleep
+            "Dormir":
+                if player.needs['sleep'] > 80:
+                    "Você não se sente cansado o suficiente para dormir!"
+                else:
+                    $ player.change_needs(sleep=+50)
+                    "Você dormiu e recuperou suas energias!"

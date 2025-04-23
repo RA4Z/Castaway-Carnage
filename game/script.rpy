@@ -6,7 +6,7 @@
 define e = Character("Eileen")
 
 init python:
-    player = Player(name="Viajante", hp=80, max_hp=100, gold=50)
+    player = Player(name="Viajante")
 
 # The game starts here.
 
