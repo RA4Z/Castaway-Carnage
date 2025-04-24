@@ -1,18 +1,6 @@
-init python:
-    import random
-
-    random_surroundings_cave_events = [
-        "surroundings_cave_event_exploration_empty_cave",
-        "surroundings_cave_event_exploration_bear_cave"
-    ]
-
 label surroundings_cave_event_exploration:
     "Você adentra a caverna"
-    if world_situation.stats["Bear Friend"] == True:
-        if "surroundings_cave_event_exploration_bear_cave" in random_surroundings_cave_events:
-            $ random_surroundings_cave_events.remove("surroundings_cave_event_exploration_bear_cave")
-
-    $ random_event = random.choice(random_surroundings_cave_events)
+    $ random_event = random.choice(world_situation.surroundings_cave_events)
     $ renpy.call(random_event)
 
     return
@@ -25,7 +13,7 @@ label surroundings_cave_event_exploration_empty_cave:
 label surroundings_cave_event_exploration_bear_cave:
     "Caminhando dentro da caverna, você percebe uma presença grande no centro dela.  A escuridão dificulta a visão, mas você sente o cheiro de musgo úmido e... algo mais selvagem."
     "Seus olhos se ajustam lentamente à penumbra. Uma forma enorme se materializa: um urso. Ele dorme profundamente, sua respiração pesada ecoando pelas paredes da caverna."
-    $ world_situation.events["Bear Friend"] = True
+    $ world_situation.remove_event('surroundings_cave_events', 'surroundings_cave_event_exploration_bear_cave')
     $ player.add_item("Honey", 1)
     $ has_honey = player.has_item("Honey", 1)
     menu:
