@@ -1,14 +1,14 @@
 init python:
     import random
 
-    random_events = [
+    random_surrounding_events = [
         "surroundings_event_bird",
         "surroundings_event_rabbit",
         "surroundings_event_squirrel",
         "surroundings_event_deer",
         "surroundings_event_fallen_tree",
         "surroundings_event_river",
-        "surroundings_event_cave_1",
+        "surroundings_event_cave",
         "surroundings_event_bird_nest",
         "surroundings_event_wildflowers",
         "surroundings_event_loose_stones"
@@ -22,7 +22,7 @@ label exploration_surroundings:
             "Iniciar Exploração":
                 $ world_state.advance_time(minutes=30)
                 $ player.change_needs(hunger=-2, thirst=-4, sleep=-5)
-                $ random_event = random.choice(random_events)
+                $ random_event = random.choice(random_surrounding_events)
                 $ renpy.call(random_event)
 
             "Cancelar a Exploração":

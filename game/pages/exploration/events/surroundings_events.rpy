@@ -81,13 +81,13 @@ label surroundings_event_river:
     menu:
         "O que fazer?"
         "Beber água":
-            $ player.change_needs(thirst=-100)  # Reduce thirst.
+            $ player.change_needs(thirst=-100)
             "Você bebe a água fresca do rio."
-            if random.random() < 0.1:  # 10% chance of getting sick
-                $ player.change_needs(sanity=-1)
+            if random.random() < 0.2:
+                $ player.change_needs(sanity=-10)
                 "A água não estava tão limpa quanto parecia. Você se sente um pouco mal."
 
-        "Lavar o rosto":  # No stat change, just flavor
+        "Lavar o rosto":
             "Você lava o rosto na água fria, sentindo-se revigorado."
 
         "Continuar explorando":
@@ -95,14 +95,12 @@ label surroundings_event_river:
 
     jump surroundings_return
 
-label surroundings_event_cave_1:
+label surroundings_event_cave:
     "Você encontra a entrada de uma caverna escura."
     menu:
         "O que fazer?"
         "Entrar na caverna":
-            "Você entra na caverna. Está muito escuro para ver qualquer coisa..."
-            "AINDA FALTA PROSSEGUIR O EVENTO"
-            # Add cave exploration logic here (new label/scene)
+            call surroudings_cave_event_exploration
             
         "Ignorar a caverna":
             "Você não se sente à vontade para entrar na caverna agora e continua explorando."
