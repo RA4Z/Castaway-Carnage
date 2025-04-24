@@ -81,7 +81,7 @@ label surroundings_event_river:
     menu:
         "O que fazer?"
         "Beber água":
-            $ player.change_needs(thirst=-100)
+            $ player.change_needs(thirst=+100)
             "Você bebe a água fresca do rio."
             if random.random() < 0.2:
                 $ player.change_needs(sanity=-10)

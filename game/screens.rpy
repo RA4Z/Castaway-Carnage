@@ -118,10 +118,10 @@ screen player_stats_display():
             padding (8, 5)
             text "Sede: [player.needs['thirst']]" # Acessa o atributo 'sede'
 
-        # --- Bloco de Cansaço ---
+        # --- Bloco de Energia ---
         frame:
             padding (8, 5)
-            text "Cansaço: [player.needs['sleep']]" # Acessa o atributo 'cansaco'
+            text "Energia: [player.needs['sleep']]" # Acessa o atributo 'Energia'
 
         # --- Bloco de Sanidade ---
         frame:
