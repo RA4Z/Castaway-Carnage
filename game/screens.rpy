@@ -99,34 +99,45 @@ style frame:
 screen player_stats_display():
     tag game_ui
 
-    # Use um hbox (horizontal box) para alinhar os status lado a lado
     hbox:
-        # Posiciona a hbox no canto superior esquerdo
-        xalign 0.0  # Alinhamento horizontal: 0.0 = esquerda, 0.5 = centro, 1.0 = direita
-        yalign 0.0  # Alinhamento vertical: 0.0 = topo, 0.5 = centro, 1.0 = baixo
+        xalign 0.0
+        yalign 0.0
+        spacing 8
 
-        # Espaçamento horizontal entre cada bloco de status
-        spacing 8 # Ajuste este valor conforme necessário
-
+        # --- Bloco de Fome ---
         frame:
-            padding (8, 5)
-            text "Fome: [player.needs['hunger']]"
+            background "gui/status_frame_bg.png"
+            xminimum 267
+            yminimum 200
+            text "Fome\n[player.needs['hunger']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
+        # --- Bloco de Sede ---
         frame:
-            padding (8, 5)
-            text "Sede: [player.needs['thirst']]"
+            background "gui/status_frame_bg.png"
+            xminimum 267
+            yminimum 200
+            text "Sede\n[player.needs['thirst']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
+        # --- Bloco de Energia ---
         frame:
-            padding (8, 5)
-            text "Energia: [player.needs['sleep']]"
+            background "gui/status_frame_bg.png"
+            xminimum 267
+            yminimum 200
+            text "Energia\n[player.needs['sleep']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
+        # --- Bloco de Sanidade ---
         frame:
-            padding (8, 5)
-            text "Sanidade: [player.needs['sanity']]"
+            background "gui/status_frame_bg.png"
+            xminimum 267
+            yminimum 200
+            text "Sanidade\n[player.needs['sanity']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
+        # --- Bloco de Tempo ---
         frame:
-            padding (8, 5)
-            text "[world_state.current_time]"
+            background "gui/status_frame_bg.png"
+            xminimum 267
+            yminimum 200
+            text "[world_state.current_time.strftime('%d/%m/%Y')]\n[world_state.current_time.strftime('%H:%M:%S')]" xalign 0.5 yalign 0.5 text_align 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
 
 screen say(who, what):
