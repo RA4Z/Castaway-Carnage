@@ -96,11 +96,11 @@ label surroundings_event_river:
     jump surroundings_return
 
 label surroundings_event_cave:
-    "Você encontra a entrada de uma caverna escura."
+    "Você encontra a entrada de uma caverna."
     menu:
         "O que fazer?"
         "Entrar na caverna":
-            call surroudings_cave_event_exploration
+            call surroundings_cave_event_exploration
             
         "Ignorar a caverna":
             "Você não se sente à vontade para entrar na caverna agora e continua explorando."

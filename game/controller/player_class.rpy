@@ -58,19 +58,26 @@ python early:
                 renpy.notify(f"{qty} {item_name} adicionado com sucesso ao inventário!") # Feedback visual opcional
                 renpy.pause(1.5)  # Wait for 0.5 seconds
 
-        def remove_item(self, item_name):
+        def remove_item(self, item_name, qty):
             """Remove um item do inventário."""
-            if item_name in self.inventory:
-                self.inventory.remove(item_name)
-                renpy.notify(f"Removido: {item_name}") # Feedback visual opcional
-                return True # Indica sucesso
-            else:
-                # renpy.notify(f"Você não tem {item_name}.") # Opcional: avisar se não tem
-                return False # Indica falha
+            for item in self.inventory:
+                if item['name'] == item_name: # Check if the item is present
+                    if item['qty'] >= qty:
+                        renpy.notify(f"{qty} {item_name} Removido do inventário!")
+                        return True
+                    else:
+                        renpy.notify(f"Você não possui {item_name} o suficiente!")
+                        return False
 
-        def has_item(self, item_name):
-            """Verifica se o jogador possui um item específico."""
-            return item_name in self.inventory
+            renpy.notify(f"Você não possui nenhum {item_name} no inventário!")
+            return False
+                    
+        def has_item(self, item_name, qty):
+            for item in self.inventory:
+                if item['name'] == item_name:
+                    if item['qty'] >= qty:
+                        return True
+            return False
 
         # Regra para adicionar pontos de experiência, fazer a verificação e subir o nível da respectiva habilidade
         def lvl_up_skills(self, skill, xp):
