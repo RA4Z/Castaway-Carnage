@@ -1,6 +1,8 @@
 label exploration_distant:
     "Você começou a se preparar para explorar regiões mais distantes de seu acampamento"
     while True:
+        if player.needs['sleep'] == 0:
+            call camp_outside_faint
         menu:
             "O que fazer a seguir?"
             "Iniciar Exploração":

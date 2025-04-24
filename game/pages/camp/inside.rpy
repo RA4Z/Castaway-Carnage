@@ -1,5 +1,9 @@
 label camp_inside:
-    "Você entra no acampamento cambaleando desajeitadamente"
+    if player.needs['sleep'] < 10:
+        "Você entra no acampamento cambaleando desajeitadamente"
+        $ player.change_needs(sanity=-0.1)
+    else:
+        "Você entra no acampamento"
     while True:
         menu:
             "Você está dentro de seu abrigo"

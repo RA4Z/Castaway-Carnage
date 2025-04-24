@@ -1,9 +1,7 @@
 label camp_outside:
-    "[player.name], bem-vindo ao seu acampamento!"
-
+    "Você está no lado de fora de seu acampamento."
     while True:
         menu:
-            "Você está no lado de fora de seu acampamento."
             "Entrar no abrigo":
                 jump camp_inside
             
