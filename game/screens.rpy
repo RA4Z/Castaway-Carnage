@@ -108,25 +108,25 @@ screen player_stats_display():
         # Espaçamento horizontal entre cada bloco de status
         spacing 8 # Ajuste este valor conforme necessário
 
-        # --- Bloco de Fome ---
-        frame: # Cada frame agora ficará ao lado do próximo
-            padding (8, 5)
-            text "Fome: [player.needs['hunger']]" # Acessa o atributo 'fome' da variável 'player'
-
-        # --- Bloco de Sede ---
         frame:
             padding (8, 5)
-            text "Sede: [player.needs['thirst']]" # Acessa o atributo 'sede'
+            text "Fome: [player.needs['hunger']]"
 
-        # --- Bloco de Energia ---
         frame:
             padding (8, 5)
-            text "Energia: [player.needs['sleep']]" # Acessa o atributo 'Energia'
+            text "Sede: [player.needs['thirst']]"
 
-        # --- Bloco de Sanidade ---
         frame:
             padding (8, 5)
-            text "Sanidade: [player.needs['sanity']]" # Acessa o atributo 'sanidade'
+            text "Energia: [player.needs['sleep']]"
+
+        frame:
+            padding (8, 5)
+            text "Sanidade: [player.needs['sanity']]"
+
+        frame:
+            padding (8, 5)
+            text "[world_state.current_time]"
 
 
 screen say(who, what):

@@ -3,7 +3,7 @@ label camp_outside:
 
     while True:
         menu:
-            "Você está no lado de fora de seu acampamento. / [world_state.current_time]"
+            "Você está no lado de fora de seu acampamento."
             "Entrar no abrigo":
                 jump camp_inside
             
@@ -15,12 +15,9 @@ label camp_outside:
             
             "Realizar Exercícios físicos":
                 if player.needs['sleep'] > 30:
-                    "Você realizou exercícios físicos!"
                     $ world_state.advance_time(minutes=30)
                     $ player.lvl_up_skills("strength", player.stats['strength'])
                     $ player.change_needs(hunger=-5, thirst=-7, sleep=-10)
-                    $ remaining = player.experience_points['strength_next_level'] - player.experience_points['strength_xp']
-                    "Pontos de experiência nessessários para o próximo nível de força: [remaining]"
-                    "Nível de força atual: [player.stats['strength']]"
+                    "Você realizou exercícios físicos!"
                 else:
                     "Você se sente cansado demais para se exercitar no momento"

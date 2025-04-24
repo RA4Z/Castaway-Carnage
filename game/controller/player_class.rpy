@@ -24,16 +24,26 @@ python early:
             self.inventory = [] # Lista para guardar itens (nomes como strings, por exemplo)
 
         def change_needs(self, hunger=0, thirst=0, sleep=0, sanity=0):
+            reduce_sanity = 0
+            reduce_sanity += self.needs['hunger'] == 0 and hunger < 0 and hunger  # if hunger is 0 and negative, add hunger to reduce_sanity
+            reduce_sanity += self.needs['thirst'] == 0 and thirst < 0 and thirst  # if thirst is 0 and negative, add thirst to reduce_sanity
+            
             self.needs['hunger'] += hunger
             self.needs['thirst'] += thirst
             self.needs['sleep'] += sleep
             self.needs['sanity'] += sanity
-
+            self.needs['sanity'] += reduce_sanity
+            
             # Limit needs to 100
             self.needs['hunger'] = min(self.needs['hunger'], 100)
             self.needs['thirst'] = min(self.needs['thirst'], 100)
             self.needs['sleep'] = min(self.needs['sleep'], 100)
             self.needs['sanity'] = min(self.needs['sanity'], 100)
+
+            self.needs['hunger'] = max(self.needs['hunger'], 0)
+            self.needs['thirst'] = max(self.needs['thirst'], 0)
+            self.needs['sleep'] = max(self.needs['sleep'], 0)
+            self.needs['sanity'] = max(self.needs['sanity'], 0)
 
         def change_hp(self, amount):
             max_hp = self.stats["strength"] * 5
@@ -82,10 +92,14 @@ python early:
         # Regra para adicionar pontos de experiência, fazer a verificação e subir o nível da respectiva habilidade
         def lvl_up_skills(self, skill, xp):
             self.experience_points[f"{skill}_xp"] += xp
+            remaining = player.experience_points['strength_next_level'] - player.experience_points['strength_xp']
+            renpy.notify(f"Pontos de experiência nessessários para o próximo nível de força: {remaining}")
+
             if self.experience_points[f"{skill}_xp"] >= self.experience_points[f"{skill}_next_level"]:
                 self.experience_points[f"{skill}_xp"] = self.experience_points[f"{skill}_xp"] - self.experience_points[f"{skill}_next_level"]
                 self.stats[skill] += 1
                 self.experience_points[f"{skill}_next_level"] = (self.stats[skill] + 1) * 10
+                renpy.notify(f"Você subiu seu nível de {skill} para {self.stats[skill]}!")
 
         # Método opcional para facilitar a visualização (debug)
         def __str__(self):
