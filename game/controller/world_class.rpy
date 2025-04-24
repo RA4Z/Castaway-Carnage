@@ -24,9 +24,15 @@ python early:
                 "surroundings_cave_event_exploration_bear_cave"
             ]
 
+            self.distant_events = [
+                "distant_event_far_away_stranger"
+            ]
+
         def remove_event(self, event_type, event_name):
             if event_type == "surrounding_events":
                 self.surrounding_events.remove(event_name)
+            if event_type == "distant_events":
+                self.distant_events.remove(event_name)
 
             if event_type == "surroundings_cave_events":
                 self.surroundings_cave_events.remove(event_name)
@@ -35,6 +41,8 @@ python early:
         def add_event(self, event_type, event_name):
             if event_type == "surrounding_events":
                 self.surrounding_events.add(event_name)
+            if event_type == "distant_events":
+                self.distant_events.add(event_name)
 
             if event_type == "surroundings_cave_events":
                 self.surroundings_cave_events.add(event_name)
