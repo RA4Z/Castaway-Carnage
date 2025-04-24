@@ -76,6 +76,84 @@ label surroundings_event_fallen_tree:
 
     jump surroundings_return
 
+label surroundings_event_river:
+    "Você encontra um rio de águas cristalinas."
+    menu:
+        "O que fazer?"
+        "Beber água":
+            $ player.change_needs(thirst=-100)  # Reduce thirst.
+            "Você bebe a água fresca do rio."
+            if random.random() < 0.1:  # 10% chance of getting sick
+                $ player.change_needs(sanity=-1)
+                "A água não estava tão limpa quanto parecia. Você se sente um pouco mal."
+
+        "Lavar o rosto":  # No stat change, just flavor
+            "Você lava o rosto na água fria, sentindo-se revigorado."
+
+        "Continuar explorando":
+            "Você decide continuar explorando a área."
+
+    jump surroundings_return
+
+label surroundings_event_cave_1:
+    "Você encontra a entrada de uma caverna escura."
+    menu:
+        "O que fazer?"
+        "Entrar na caverna":
+            "Você entra na caverna. Está muito escuro para ver qualquer coisa..."
+            "AINDA FALTA PROSSEGUIR O EVENTO"
+            # Add cave exploration logic here (new label/scene)
+            
+        "Ignorar a caverna":
+            "Você não se sente à vontade para entrar na caverna agora e continua explorando."
+
+    jump surroundings_return
+
+label surroundings_event_bird_nest:
+    "Você encontra um ninho de pássaro com ovos dentro."
+    menu:
+        "O que fazer?"
+        "Pegar os ovos": # Consider adding the eggs to inventory?
+            $ player.change_needs(sanity=-1)
+            $ player.add_item("Eggs", 3)
+            "Você pega os ovos, mas sente uma pontada de culpa por perturbar a natureza."
+
+        "Observar o ninho":
+            "Você observa o ninho com cuidado, sem tocar nos ovos."  # Positive effect
+            $ player.change_needs(sanity=+1)
+
+        "Deixar o ninho em paz":
+            "Você decide deixar o ninho em paz e continua explorando."  # No effect
+
+    jump surroundings_return
+
+label surroundings_event_wildflowers:
+    "Você encontra um campo de flores silvestres. O perfume é maravilhoso!"
+    menu:
+        "O que fazer?"
+        "Colher algumas flores":
+            $ player.add_item("Flores Silvestres", 5) # Could be a quantity or a single item
+            "Você colhe algumas flores, elas trazem uma sensação de paz e alegria."
+
+        "Apreciar a vista":
+            "Você se senta por um momento e aprecia a beleza das flores."
+            $ player.change_needs(sanity=+1) # Positive Effect
+
+        "Ignorar as flores":
+            "Você não é muito fã de flores e segue adiante."
+
+    jump surroundings_return
+
+label surroundings_event_loose_stones:
+    "Você caminha por uma área com muitas pedras soltas."
+    if random.random() < 0.3: # 30% chance of tripping
+        "Você tropeça e cai!" # Negative event
+        $ player.change_hp(-10)
+        $ player.change_needs(sanity=-2)
+    else:
+        "Você caminha com cuidado, evitando as pedras."
+    jump surroundings_return # Return even if nothing happened
+
 label surroundings_return:  # Common return point for all random events
     "Você retorna ao acampamento."
     return

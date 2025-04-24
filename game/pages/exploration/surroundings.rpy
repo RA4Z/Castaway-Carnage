@@ -6,7 +6,12 @@ init python:
         "surroundings_event_rabbit",
         "surroundings_event_squirrel",
         "surroundings_event_deer",
-        "surroundings_event_fallen_tree"
+        "surroundings_event_fallen_tree",
+        "surroundings_event_river",
+        "surroundings_event_cave_1",
+        "surroundings_event_bird_nest",
+        "surroundings_event_wildflowers",
+        "surroundings_event_loose_stones"
     ]
 
 label exploration_surroundings:
