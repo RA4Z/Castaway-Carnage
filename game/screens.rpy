@@ -95,6 +95,49 @@ style frame:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#say
 
+
+screen player_stats_display():
+    # Define que esta tela faz parte da interface do jogo (HUD)
+    # Isso ajuda a garantir que ela seja salva/carregada corretamente
+    # e geralmente escondida durante menus completos como save/load.
+    tag game_ui
+
+    # Use um vbox (vertical box) para empilhar os status verticalmente
+    vbox:
+        # Posiciona a vbox no canto superior esquerdo
+        xalign 0.0  # Alinhamento horizontal: 0.0 = esquerda, 0.5 = centro, 1.0 = direita
+        yalign 0.0  # Alinhamento vertical: 0.0 = topo, 0.5 = centro, 1.0 = baixo
+
+        # Espaçamento entre cada bloco de status
+        spacing 8
+
+        # --- Bloco de Fome ---
+        frame: # Usa um 'frame' para dar um fundo/borda a cada bloco
+            # padding (horizontal, vertical) dentro do frame
+            padding (8, 5)
+            # Você pode definir um tamanho mínimo se quiser que todos os blocos tenham a mesma largura
+            # xminimum 150
+            text "Fome: [player.needs['hunger']]" # Acessa o atributo 'fome' da variável 'player'
+
+        # --- Bloco de Sede ---
+        frame:
+            padding (8, 5)
+            # xminimum 150
+            text "Sede: [player.needs['thirst']]" # Acessa o atributo 'sede'
+
+        # --- Bloco de Cansaço ---
+        frame:
+            padding (8, 5)
+            # xminimum 150
+            text "Cansaço: [player.needs['sleep']]" # Acessa o atributo 'cansaco'
+
+        # --- Bloco de Sanidade ---
+        frame:
+            padding (8, 5)
+            # xminimum 150
+            text "Sanidade: [player.needs['sanity']]" # Acessa o atributo 'sanidade'
+
+
 screen say(who, what):
     style_prefix "say"
 
