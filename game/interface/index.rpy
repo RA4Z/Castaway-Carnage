@@ -76,13 +76,10 @@ screen inventory_popup():
         xalign 0.5
         yalign 0.5
 
-        # Define a minimum size (adjust based on grid size + padding)
-        # 5 * item_width + 4 * grid_spacing + 2 * frame_padding_x
-        # Example: 5*100 + 4*10 + 2*30 = 500 + 40 + 60 = 600
-        xminimum 600
+        xminimum 1250
         # 5 * item_height + 4 * grid_spacing + 2 * frame_padding_y + title_height + spacing...
         # Example: 5*50 + 4*10 + 2*20 + 30 + 20 + 15 + button_height = 250+40+40+30+20+15+30 = 425
-        yminimum 425
+        yminimum 750
 
         # Add internal padding (space between the frame border and content)
         xpadding 30
@@ -144,3 +141,4 @@ screen inventory_popup():
             # --- End of Item Grid ---
             null height 15 # Space before the close button
             textbutton "Fechar" action Hide("inventory_popup") xalign 0.5
+            
