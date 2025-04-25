@@ -23,3 +23,4 @@ style stats_text is text:
     text_align 0.5                # Center align multi-line text
     xalign 0.5
     yalign 0.5
+

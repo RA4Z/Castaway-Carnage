@@ -78,7 +78,7 @@ screen player_stats_display():
 
 
 screen inventory_popup():
-
+    on "show" action Play("sound", "audio/ziper.mp3")
     # 'modal True' impede que o jogador clique em elementos atrás do popup
     modal True
 
