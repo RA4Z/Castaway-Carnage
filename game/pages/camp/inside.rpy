@@ -1,4 +1,7 @@
+image image_camp_inside = "images/camp_inside.png"
+
 label camp_inside:
+    $ show_only_image("image_camp_inside")
     if player.needs['sleep'] < 10:
         "Você entra no acampamento cambaleando desajeitadamente"
         $ player.change_needs(sanity=-0.1)

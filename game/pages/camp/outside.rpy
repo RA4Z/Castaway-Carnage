@@ -1,6 +1,9 @@
+image image_exercise_visual = "images/camp_exercises.png"
+image image_camp_outside = "images/camp_outside.png"
+
 label camp_outside:
-    "Você está no lado de fora de seu acampamento."
     while True:
+        $ show_only_image("image_camp_outside")
         menu:
             "Entrar no abrigo":
                 jump camp_inside
@@ -13,6 +16,7 @@ label camp_outside:
             
             "Realizar Exercícios físicos":
                 if player.needs['sleep'] > 30:
+                    $ show_only_image("image_exercise_visual")
                     $ world_state.advance_time(minutes=30)
                     $ player.lvl_up_skills("strength", player.stats['strength'])
                     $ player.change_needs(hunger=-5, thirst=-7, sleep=-10)
