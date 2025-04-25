@@ -54,37 +54,43 @@ python early:
                 self.hp = max_hp
             # Você pode adicionar lógica aqui para verificar se o jogador morreu (hp <= 0)
 
-        def add_item(self, item_name, qty):
+        def add_item(self, item_id, qty):
             found_item = False
             for item in self.inventory:
-                if item['name'] == item_name: # Check if the item is present
+                if item['id'] == item_id: # Check if the item is present
                     item['qty'] += qty
                     found_item = True
+                    item_name = next((item['name'] for item in inventory_items if item['id'] == item_id), item_id)
                     renpy.notify(f"{qty} {item_name} adicionado com sucesso ao inventário!") # Feedback visual opcional
                     renpy.pause(1.5)  # Wait for 0.5 seconds
                     break # Stop searching once the item is found
+
             if not found_item:
-                self.inventory.append({'name': item_name, 'qty': qty})
+                item_name = next((item['name'] for item in inventory_items if item['id'] == item_id), item_id)
+                self.inventory.append({'id': item_id, 'qty': qty})
                 renpy.notify(f"{qty} {item_name} adicionado com sucesso ao inventário!") # Feedback visual opcional
                 renpy.pause(1.5)  # Wait for 0.5 seconds
 
-        def remove_item(self, item_name, qty):
+        def remove_item(self, item_id, qty):
             """Remove um item do inventário."""
             for item in self.inventory:
-                if item['name'] == item_name: # Check if the item is present
+                if item['id'] == item_id: # Check if the item is present
                     if item['qty'] >= qty:
+                        item_name = next((item['name'] for item in inventory_items if item['id'] == item_id), item_id)
                         renpy.notify(f"{qty} {item_name} Removido do inventário!")
                         return True
                     else:
+                        item_name = next((item['name'] for item in inventory_items if item['id'] == item_id), item_id)
                         renpy.notify(f"Você não possui {item_name} o suficiente!")
                         return False
 
+            item_name = next((item['name'] for item in inventory_items if item['id'] == item_id), item_id)
             renpy.notify(f"Você não possui nenhum {item_name} no inventário!")
             return False
                     
-        def has_item(self, item_name, qty):
+        def has_item(self, item_id, qty):
             for item in self.inventory:
-                if item['name'] == item_name:
+                if item['id'] == item_id:
                     if item['qty'] >= qty:
                         return True
             return False

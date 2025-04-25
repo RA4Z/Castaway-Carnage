@@ -28,7 +28,7 @@ label surroundings_event_squirrel:
         "O que fazer?"
         "Aproximar-se":
             "Você se aproxima, mas o esquilo foge, deixando para trás... uma noz!."
-            $ player.add_item("Noz", 1)
+            $ player.add_item("Nut", 1)
         "Ignorar":
             "Você ignora o esquilo."
     jump surroundings_return
@@ -130,7 +130,7 @@ label surroundings_event_wildflowers:
     menu:
         "O que fazer?"
         "Colher algumas flores":
-            $ player.add_item("Flores Silvestres", 5) # Could be a quantity or a single item
+            $ player.add_item("Wildflowers", 5) # Could be a quantity or a single item
             "Você colhe algumas flores, elas trazem uma sensação de paz e alegria."
 
         "Apreciar a vista":
