@@ -14,7 +14,6 @@ label surroundings_cave_event_exploration_bear_cave:
     "Caminhando dentro da caverna, você percebe uma presença grande no centro dela.  A escuridão dificulta a visão, mas você sente o cheiro de musgo úmido e... algo mais selvagem."
     "Seus olhos se ajustam lentamente à penumbra. Uma forma enorme se materializa: um urso. Ele dorme profundamente, sua respiração pesada ecoando pelas paredes da caverna."
     $ world_situation.remove_event('surroundings_cave_events', 'surroundings_cave_event_exploration_bear_cave')
-    $ player.add_item("Honey", 1)
     $ has_honey = player.has_item("Honey", 1)
     menu:
         "O que você faz?"
