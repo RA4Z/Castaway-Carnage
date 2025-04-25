@@ -116,41 +116,14 @@ screen player_stats_display():
             yminimum 128
             text "[world_state.current_time.strftime('%d/%m/%Y')]\n[world_state.current_time.strftime('%H:%M:%S')]" xalign 0.5 yalign 0.5 text_align 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
-        # --- Bloco de Fome ---
-        frame:
-            background "status_frame_hunger"
-            xminimum stats_size
-            yminimum stats_size
-            xmaximum stats_size
-            ymaximum stats_size
-            text "[player.needs['hunger']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
-
-        # --- Bloco de Sede ---
-        frame:
-            background "status_frame_thirst"
-            xminimum stats_size
-            yminimum stats_size
-            xmaximum stats_size
-            ymaximum stats_size
-            text "[player.needs['thirst']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
-
-        # --- Bloco de Energia ---
-        frame:
-            background "status_frame_sleep"
-            xminimum stats_size
-            yminimum stats_size
-            xmaximum stats_size
-            ymaximum stats_size
-            text "[player.needs['sleep']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
-
-        # --- Bloco de Sanidade ---
-        frame:
-            background "status_frame_sanity"
-            xminimum stats_size
-            yminimum stats_size
-            xmaximum stats_size
-            ymaximum stats_size
-            text "[player.needs['sanity']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
+        for need in ["hunger", "thirst", "sleep", "sanity"]:
+            frame:
+                background f"status_frame_{need}"  # F-string for cleaner formatting
+                xminimum stats_size
+                yminimum stats_size
+                xmaximum stats_size
+                ymaximum stats_size
+                text "[player.needs[need]]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
 
 screen say(who, what):
