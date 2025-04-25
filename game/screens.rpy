@@ -94,7 +94,13 @@ style frame:
 ## com id "who" e id "window" para aplicar propriedades de estilo.
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#say
+init python:
+    stats_size= 64
 
+image status_frame_sleep = im.Scale("gui/player_stats/sleep.png", width=stats_size, height=stats_size)
+image status_frame_hunger = im.Scale("gui/player_stats/hunger.png", width=stats_size, height=stats_size)
+image status_frame_thirst = im.Scale("gui/player_stats/thirst.png", width=stats_size, height=stats_size)
+image status_frame_sanity = im.Scale("gui/player_stats/sanity.png", width=stats_size, height=stats_size)
 
 screen player_stats_display():
     tag game_ui
@@ -104,40 +110,47 @@ screen player_stats_display():
         yalign 0.0
         spacing 8
 
+        # --- Bloco de Tempo ---
+        frame:
+            xminimum 128
+            yminimum 128
+            text "[world_state.current_time.strftime('%d/%m/%Y')]\n[world_state.current_time.strftime('%H:%M:%S')]" xalign 0.5 yalign 0.5 text_align 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
+
         # --- Bloco de Fome ---
         frame:
-            background "gui/status_frame_bg.png"
-            xminimum 267
-            yminimum 200
-            text "Fome\n[player.needs['hunger']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
+            background "status_frame_hunger"
+            xminimum stats_size
+            yminimum stats_size
+            xmaximum stats_size
+            ymaximum stats_size
+            text "[player.needs['hunger']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
         # --- Bloco de Sede ---
         frame:
-            background "gui/status_frame_bg.png"
-            xminimum 267
-            yminimum 200
-            text "Sede\n[player.needs['thirst']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
+            background "status_frame_thirst"
+            xminimum stats_size
+            yminimum stats_size
+            xmaximum stats_size
+            ymaximum stats_size
+            text "[player.needs['thirst']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
         # --- Bloco de Energia ---
         frame:
-            background "gui/status_frame_bg.png"
-            xminimum 267
-            yminimum 200
-            text "Energia\n[player.needs['sleep']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
+            background "status_frame_sleep"
+            xminimum stats_size
+            yminimum stats_size
+            xmaximum stats_size
+            ymaximum stats_size
+            text "[player.needs['sleep']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
         # --- Bloco de Sanidade ---
         frame:
-            background "gui/status_frame_bg.png"
-            xminimum 267
-            yminimum 200
-            text "Sanidade\n[player.needs['sanity']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
-
-        # --- Bloco de Tempo ---
-        frame:
-            background "gui/status_frame_bg.png"
-            xminimum 267
-            yminimum 200
-            text "[world_state.current_time.strftime('%d/%m/%Y')]\n[world_state.current_time.strftime('%H:%M:%S')]" xalign 0.5 yalign 0.5 text_align 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
+            background "status_frame_sanity"
+            xminimum stats_size
+            yminimum stats_size
+            xmaximum stats_size
+            ymaximum stats_size
+            text "[player.needs['sanity']]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
 
 
 screen say(who, what):
