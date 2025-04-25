@@ -24,3 +24,25 @@ style stats_text is text:
     xalign 0.5
     yalign 0.5
 
+
+style inventory_item_button is default:
+    # Example size - adjust as needed for your item text/images
+    xysize (100, 50) # Width, Height for each grid slot
+    # Center content within the button/slot
+    xalign 0.5
+    yalign 0.5
+    # Add text alignment if using textbutton
+    text_align 0.5
+
+style empty_slot is frame:
+# Set the size to match the expected size of the 5x5 grid area
+# Calculation: (columns * item_width + (columns - 1) * grid_spacing, rows * item_height + (rows - 1) * grid_spacing)
+# Using the example values from before: (5 * 100 + 4 * 10, 5 * 50 + 4 * 10)
+    xysize (540, 290)
+
+    # Make the frame itself invisible, we only want it for sizing
+    background None
+
+    # Center content placed inside this frame (like the "Inventário vazio" text)
+    xalign 0.5
+    yalign 0.5

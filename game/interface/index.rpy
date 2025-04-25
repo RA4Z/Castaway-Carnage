@@ -15,15 +15,10 @@ image backpack = im.Scale("gui/player_stats/backpack.png", width=stats_size*2, h
 
 screen player_stats_display():
     tag game_ui
-    # Use a fixed layout to position elements independently in corners
     fixed:
-
-        # --- Left Aligned Block (Clock and Status) ---
         hbox:
-            # Position this hbox at the top-left corner
             xalign 0.0
             yalign 0.0
-            # Add some padding from the screen edges
             xoffset 10 # Adjust padding from left edge
             yoffset 10 # Adjust padding from top edge
             spacing 20 # Space between clock and status bars
@@ -46,7 +41,6 @@ screen player_stats_display():
             hbox: # Container for the status icons
                 spacing 10 # Space between status icons
 
-                # Ensure stats_size is defined, e.g., default stats_size = 40
                 for need in ["hunger", "thirst", "sleep", "sanity"]:
                     bar:
                         value player.needs[need]  # Current need value
@@ -62,86 +56,91 @@ screen player_stats_display():
             # Position this button at the top-right corner
             xalign 1.0
             yalign 0.0
-            # Add some padding from the screen edges
             xoffset -10 # Adjust padding from right edge (negative moves left)
             yoffset 10  # Adjust padding from top edge
-
-            # --- Define your backpack images ---
-            # Replace with your actual image file paths
             idle "backpack"    # Image when not hovered/clicked
             hover "backpack"   # Image when hovered (optional)
-            # focus_mask True # Uncomment if your image has transparency and you want precise hovering
-
-            # --- Action to perform when clicked ---
-            # This will show the screen named "inventory_popup"
             action Show("inventory_popup")
 
 
 screen inventory_popup():
-    on "show" action Play("sound", "audio/ziper.mp3")
-    # 'modal True' impede que o jogador clique em elementos atrás do popup
+    on "show" action Play("sound", "audio/sfx/ziper.mp3")
     modal True
 
-    # 'tag' ajuda a garantir que apenas uma instância desta tela seja mostrada
+    # 'tag' helps ensure only one instance of this screen is shown
     tag inventory
 
-    # Use um 'frame' como container para o popup.
-    # 'frame' geralmente tem um fundo e bordas definidos no seu tema (gui.rpy)
+    # Use a 'frame' as container for the popup.
     frame:
-        # Centraliza o frame na tela
+        # Center the frame on the screen
         xalign 0.5
         yalign 0.5
 
-        # Define um tamanho mínimo (opcional, ajuste conforme necessário)
-        xminimum 300
-        yminimum 200
+        # Define a minimum size (adjust based on grid size + padding)
+        # 5 * item_width + 4 * grid_spacing + 2 * frame_padding_x
+        # Example: 5*100 + 4*10 + 2*30 = 500 + 40 + 60 = 600
+        xminimum 600
+        # 5 * item_height + 4 * grid_spacing + 2 * frame_padding_y + title_height + spacing...
+        # Example: 5*50 + 4*10 + 2*20 + 30 + 20 + 15 + button_height = 250+40+40+30+20+15+30 = 425
+        yminimum 425
 
-        # Adiciona preenchimento interno (espaço entre a borda do frame e o conteúdo)
+        # Add internal padding (space between the frame border and content)
         xpadding 30
         ypadding 20
 
-        # Use um 'vbox' para empilhar os elementos verticalmente
+        # Use a 'vbox' to stack title, grid, and close button vertically
         vbox:
-            # Espaçamento entre os elementos na vbox
+            # Spacing between elements in the vbox
             spacing 10
-            # Alinha o conteúdo da vbox ao centro horizontalmente dentro do frame
+            # Align the content of the vbox horizontally within the frame
             xalign 0.5
 
-            # Título do Popup
-            text "Inventário" size 22 xalign 0.5 # Ajuste o tamanho e alinhamento
+            # Popup Title
+            text "Inventário" size 22 xalign 0.5 # Adjust size and alignment
 
-            # Adiciona uma linha divisória (opcional)
-            null height 5 # Pequeno espaço
-            add "gui/line.png" xalign 0.5 # Use uma imagem de linha ou remova
-            null height 5 # Pequeno espaço
+            # Add a dividing line (optional)
+            null height 5 # Small space
+            add "gui/line.png" xalign 0.5 # Use a line image or remove
+            null height 5 # Small space
 
-            # --- Lista de Itens ---
-            # Verifica se o inventário está vazio
+            # --- Item Grid ---
+            # Check if inventory is empty
             if not player.inventory:
-                text "O inventário está vazio." align (0.5, 0.5) # Centraliza o texto
+                # Keep the frame size consistent even when empty
+                frame style "empty_slot": # Use a styled frame or null for size
+                    xysize (5 * 100 + 4 * 10, 5 * 50 + 4 * 10) # Calculate grid area size
+                    # This assumes item size (100, 50) and grid spacing 10
+                    text "O inventário está vazio." xalign 0.5 yalign 0.5 # Center text
             else:
-                # Cria uma área rolável se a lista for muito grande
-                viewport:
-                    # Mostra a barra de rolagem vertical apenas se necessário
-                    scrollbars "vertical"
-                    # Permite rolar com a roda do mouse
-                    mousewheel True
-                    # Define uma altura máxima para a área rolável
-                    # O conteúdo dentro dela poderá ser maior
-                    ymaximum 300 # Ajuste a altura máxima conforme necessário
+                # Use a grid with 5 columns and 5 rows
+                grid 5 5:
+                    # Spacing between grid cells
+                    spacing 10
+                    # Align the grid itself within its allocated space (usually centered by vbox's xalign)
+                    xalign 0.5
+                    yalign 0.5
 
-                    # Vbox interna para listar os itens dentro da área rolável
-                    vbox:
-                        spacing 5 # Espaçamento menor entre os itens da lista
-                        # Itera sobre cada 'item' na lista 'player.inventory'
-                        for item_name in player.inventory:
-                            # Mostra o nome de cada item como texto
-                            text item_name
+                    # Iterate through items in the player's inventory
+                    for item in player.inventory:
+                        # Add a button for each item. Apply the style.
+                        # You might want NullAction() if items aren't clickable yet,
+                        # or a specific action like UseItem(item_name)
+                        $ item_id = item['id']
+                        $ item_name = next((item['name'] for item in inventory_items if item['id'] == item_id), item_id)
+                        textbutton item_name action NullAction() style "inventory_item_button"
 
-            # --- Fim da Lista de Itens ---
+                    # OPTIONAL: Fill remaining grid slots if less than 25 items
+                    # This ensures the grid structure is visually consistent
+                    $ items_shown = len(player.inventory)
+                    $ slots_to_fill = 25 - items_shown
+                    if slots_to_fill > 0:
+                        for i in range(slots_to_fill):
+                            # Add an empty, non-interactive frame or button
+                            # Use the same size as item slots for alignment
+                            frame style "inventory_item_button": # Use the same style for size
+                                background None # Make it visually empty if needed
+                                # Or use: button style "inventory_item_button": action NullAction() sensitive False
 
-            # Espaço antes do botão de fechar (opcional)
-            null height 15
-
-            # Botão para fechar o popup
+            # --- End of Item Grid ---
+            null height 15 # Space before the close button
             textbutton "Fechar" action Hide("inventory_popup") xalign 0.5
