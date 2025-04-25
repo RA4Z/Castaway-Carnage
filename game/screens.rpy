@@ -94,38 +94,7 @@ style frame:
 ## com id "who" e id "window" para aplicar propriedades de estilo.
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#say
-init python:
-    stats_size= 64
-
-image status_frame_sleep = im.Scale("gui/player_stats/sleep.png", width=stats_size, height=stats_size)
-image status_frame_hunger = im.Scale("gui/player_stats/hunger.png", width=stats_size, height=stats_size)
-image status_frame_thirst = im.Scale("gui/player_stats/thirst.png", width=stats_size, height=stats_size)
-image status_frame_sanity = im.Scale("gui/player_stats/sanity.png", width=stats_size, height=stats_size)
-
-screen player_stats_display():
-    tag game_ui
-
-    hbox:
-        xalign 0.0
-        yalign 0.0
-        spacing 8
-
-        # --- Bloco de Tempo ---
-        frame:
-            xminimum 128
-            yminimum 128
-            text "[world_state.current_time.strftime('%d/%m/%Y')]\n[world_state.current_time.strftime('%H:%M:%S')]" xalign 0.5 yalign 0.5 text_align 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
-
-        for need in ["hunger", "thirst", "sleep", "sanity"]:
-            frame:
-                background f"status_frame_{need}"  # F-string for cleaner formatting
-                xminimum stats_size
-                yminimum stats_size
-                xmaximum stats_size
-                ymaximum stats_size
-                text "[player.needs[need]]" xalign 0.5 yalign 0.5 color "#FFF" outlines [(1, "#000", 0, 0)]
-
-
+    
 screen say(who, what):
     style_prefix "say"
 
