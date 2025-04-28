@@ -5,9 +5,9 @@
     player = Player(name="Viajante")
 
 label start:
-    python:
-        player_name = renpy.input("Qual é o seu nome?", default=player.name, length=20)
-        player.name = player_name.strip() or player.name # Atualiza o nome no objeto, usa o anterior se vazio
+    # python:
+        # player_name = renpy.input("Qual é o seu nome?", default=player.name, length=20)
+        # player.name = player_name.strip() or player.name # Atualiza o nome no objeto, usa o anterior se vazio
 
     show screen player_stats_display
     call camp_outside

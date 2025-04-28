@@ -15,7 +15,6 @@ init python:
     style.digital_clock_time = Style(style.digital_clock_base)
     style.digital_clock_time.size = 28 # Adjust size as needed
 
-
 style stats_text is text:
     size 20                       # Adjust font size
     color "#E0E0E0"                 # Light grey text color
@@ -26,9 +25,6 @@ style stats_text is text:
 
 
 style inventory_item_button is default:
-    # Example size - adjust as needed for your item text/images
-    xysize (100, 50) # Width, Height for each grid slot
-    # Center content within the button/slot
     xalign 0.5
     yalign 0.5
     # Add text alignment if using textbutton
@@ -46,3 +42,11 @@ style empty_slot is frame:
     # Center content placed inside this frame (like the "Inventário vazio" text)
     xalign 0.5
     yalign 0.5
+
+    
+style close_button_style is button:
+    background None # Make background transparent if using just text like "X"
+    hover_background None
+    size 20                      
+    color "#f00"             
+    xysize (30, 30)

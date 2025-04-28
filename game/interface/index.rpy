@@ -1,144 +1,179 @@
 init python:
-    stats_size= 64
+    # --- Constants for UI elements ---
+    STATS_SIZE = 64
+    BACKPACK_SIZE = STATS_SIZE * 2
+    INVENTORY_WIDTH = 800
+    INVENTORY_HEIGHT = 600
+    UI_PADDING = 10
+    INVENTORY_VPADDING = 40 # Top/Bottom padding inside inventory
+    INVENTORY_HPADDING = 30 # Left/Right padding inside inventory
 
-image status_frame_sleep = im.Scale("gui/player_stats/sleep.png", width=stats_size, height=stats_size)
-image status_frame_hunger = im.Scale("gui/player_stats/hunger.png", width=stats_size, height=stats_size)
-image status_frame_thirst = im.Scale("gui/player_stats/thirst.png", width=stats_size, height=stats_size)
-image status_frame_sanity = im.Scale("gui/player_stats/sanity.png", width=stats_size, height=stats_size)
+    # --- Dynamic Image Definitions ---
+    # Define status icons using a loop to avoid repetition
+    status_needs = ["sleep", "hunger", "thirst", "sanity"]
+    for need_name in status_needs:
+        # Normal state icon
+        renpy.image(f"status_frame_{need_name}", im.Scale(f"gui/player_stats/{need_name}.png", width=STATS_SIZE, height=STATS_SIZE))
+        # Dark/Empty state icon
+        renpy.image(f"status_frame_dark_{need_name}", im.Scale(f"gui/player_stats/dark_{need_name}.png", width=STATS_SIZE, height=STATS_SIZE))
 
-image status_frame_dark_sleep = im.Scale("gui/player_stats/dark_sleep.png", width=stats_size, height=stats_size)
-image status_frame_dark_hunger = im.Scale("gui/player_stats/dark_hunger.png", width=stats_size, height=stats_size)
-image status_frame_dark_thirst = im.Scale("gui/player_stats/dark_thirst.png", width=stats_size, height=stats_size)
-image status_frame_dark_sanity = im.Scale("gui/player_stats/dark_sanity.png", width=stats_size, height=stats_size)
+    # Define backpack icon separately as it has a different size
+    renpy.image("backpack_icon", im.Scale("gui/player_stats/backpack.png", width=BACKPACK_SIZE, height=BACKPACK_SIZE))
 
-image backpack = im.Scale("gui/player_stats/backpack.png", width=stats_size*2, height=stats_size*2)
+    # --- Placeholder for Inventory Item Data ---
+    # Ensure you have a list like this defined, mapping IDs to names, etc.
+    # inventory_items = [
+    #     {'id': 'apple', 'name': 'Maçã Fresca', 'description': 'Restaura um pouco de fome.'},
+    #     {'id': 'water_bottle', 'name': 'Garrafa de Água', 'description': 'Mata a sede.'},
+    #     # ... other items
+    # ]
+    pass # Keep the init python block valid if inventory_items is defined elsewhere
 
+# --- Define Styles (Make sure these exist in your styles.rpy or elsewhere) ---
+# style digital_clock_top:
+#     font "your_digital_font.ttf"
+#     size 18
+#     color "#A0A0A0"
+#
+# style digital_clock_time:
+#     font "your_digital_font.ttf"
+#     size 36
+#     color "#FFFFFF"
+#
+# style close_button_style is default: # Example inheritance
+#    properties gui.button_properties("close_button") # Use theme properties if available
+#    # Add specific overrides:
+#    size 24
+#    # ... other properties
+#
+# style inventory_item_button is default: # Example inheritance
+#    properties gui.button_properties("button") # Use theme properties if available
+#    # Add specific overrides:
+#    size 18
+#    # ... other properties
+
+# --- Player Stats Display Screen ---
 screen player_stats_display():
     tag game_ui
+    zorder 10 # Ensure it's above basic layers if needed
+
     fixed:
+        # --- Top Left Cluster (Time + Stats) ---
         hbox:
             xalign 0.0
             yalign 0.0
-            xoffset 10 # Adjust padding from left edge
-            yoffset 10 # Adjust padding from top edge
+            xoffset UI_PADDING
+            yoffset UI_PADDING
             spacing 20 # Space between clock and status bars
 
-            # --- Bloco de Tempo (Digital Style) ---
+            # --- Digital Clock Frame ---
             frame:
-                background None
-                padding (10, 5)
+                background None # No visual frame background
+                padding (10, 5) # Internal padding
                 vbox:
                     xalign 0.5
                     spacing 2
-                    hbox:
+                    hbox: # Date and Day
                         xalign 0.5
                         spacing 15
                         text "[world_state.current_time.strftime('%Y/%m/%d')]" style "digital_clock_top"
                         text "[world_state.current_time.strftime('%a').upper()]" style "digital_clock_top"
+                    # Time
                     text "[world_state.current_time.strftime('%H:%M:%S')]" style "digital_clock_time" xalign 0.5
 
-            # --- Bloco de Status (com efeito de sobreposição) ---
-            hbox: # Container for the status icons
+            # --- Status Bars ---
+            hbox:
                 spacing 10 # Space between status icons
-
-                for need in ["hunger", "thirst", "sleep", "sanity"]:
+                # Loop through needs defined in init python
+                for need_name in status_needs:
                     bar:
-                        value player.needs[need]  # Current need value
-                        range 100                 # Max value (0-100)
-                        xysize (stats_size, stats_size) # Define the exact size
-                        left_bar f"status_frame_{need}" # Make sure these paths are correct
-                        right_bar f"status_frame_dark_{need}" # Make sure these paths are correct
+                        value player.needs[need_name] # Assumes player.needs dictionary exists
+                        range 100
+                        xysize (STATS_SIZE, STATS_SIZE)
+                        left_bar f"status_frame_{need_name}"      # Use dynamic image name
+                        right_bar f"status_frame_dark_{need_name}" # Use dynamic image name
                         thumb None
-                        bar_invert False
+                        bar_invert False # Bar fills from left to right
 
-        # --- Right Aligned Block (Backpack Icon) ---
+        # --- Top Right (Backpack Icon) ---
         imagebutton:
-            # Position this button at the top-right corner
             xalign 1.0
             yalign 0.0
-            xoffset -10 # Adjust padding from right edge (negative moves left)
-            yoffset 10  # Adjust padding from top edge
-            idle "backpack"    # Image when not hovered/clicked
-            hover "backpack"   # Image when hovered (optional)
+            xoffset -UI_PADDING # Use negative offset with xalign 1.0 for right padding
+            yoffset UI_PADDING
+            idle "backpack_icon"    # Use defined image name
+            hover "backpack_icon"   # Same for hover (adjust if you have a hover version)
             action Show("inventory_popup")
 
 
+# --- Inventory Popup Screen ---
 screen inventory_popup():
     on "show" action Play("sound", "audio/sfx/ziper.mp3")
-    modal True
-
-    # 'tag' helps ensure only one instance of this screen is shown
+    modal True # Blocks interaction with underlying screens
     tag inventory
+    zorder 100 # Ensure it's above the game UI
 
-    # Use a 'frame' as container for the popup.
     frame:
-        # Center the frame on the screen
-        xalign 0.5
-        yalign 0.5
+        # --- Sizing and Positioning ---
+        xalign 0.5 yalign 0.5
+        # Force a fixed size using minimum and maximum
+        minimum (INVENTORY_WIDTH, INVENTORY_HEIGHT)
+        maximum (INVENTORY_WIDTH, INVENTORY_HEIGHT)
 
-        xminimum 1250
-        # 5 * item_height + 4 * grid_spacing + 2 * frame_padding_y + title_height + spacing...
-        # Example: 5*50 + 4*10 + 2*20 + 30 + 20 + 15 + button_height = 250+40+40+30+20+15+30 = 425
-        yminimum 750
+        # Internal padding
+        padding (INVENTORY_HPADDING, INVENTORY_VPADDING, INVENTORY_HPADDING, INVENTORY_VPADDING - 10) # Adjust bottom padding if needed
 
-        # Add internal padding (space between the frame border and content)
-        xpadding 30
-        ypadding 20
+        # --- Close Button ---
+        textbutton "X" action Hide("inventory_popup"):
+            style "close_button_style" # Make sure this style is defined
+            xalign 1.0 yalign 0.0
+            xoffset -15 yoffset 15 # Position relative to top-right corner of frame padding
 
-        # Use a 'vbox' to stack title, grid, and close button vertically
+        # --- Main Content ---
         vbox:
-            # Spacing between elements in the vbox
-            spacing 10
-            # Align the content of the vbox horizontally within the frame
-            xalign 0.5
+            xalign 0.5 # Center content horizontally within the frame
+            spacing 15
 
-            # Popup Title
-            text "Inventário" size 22 xalign 0.5 # Adjust size and alignment
+            text "Inventário" size 24 xalign 0.5 # Title
 
-            # Add a dividing line (optional)
-            null height 5 # Small space
-            add "gui/line.png" xalign 0.5 # Use a line image or remove
-            null height 5 # Small space
+            # Divider (optional visual separator)
+            null height 15 # Space before divider
+            frame:
+                background "#444" # Example color
+                xfill True
+                ysize 2
+            null height 5 # Space after divider
 
-            # --- Item Grid ---
-            # Check if inventory is empty
+            # --- Item List Area ---
             if not player.inventory:
-                # Keep the frame size consistent even when empty
-                frame style "empty_slot": # Use a styled frame or null for size
-                    xysize (5 * 100 + 4 * 10, 5 * 50 + 4 * 10) # Calculate grid area size
-                    # This assumes item size (100, 50) and grid spacing 10
-                    text "O inventário está vazio." xalign 0.5 yalign 0.5 # Center text
+                # Display message if inventory is empty
+                # Use a fixed height container or just text to maintain layout
+                frame:
+                    background "#00000040" # Subtle background for empty state
+                    xfill True
+                    yfill True # Let it fill the space allocated by the vbox
+                    text "O inventário está vazio." xalign 0.5 yalign 0.5 size 20
             else:
-                # Use a grid with 5 columns and 5 rows
-                grid 5 5:
-                    # Spacing between grid cells
-                    spacing 10
-                    # Align the grid itself within its allocated space (usually centered by vbox's xalign)
-                    xalign 0.5
-                    yalign 0.5
+                # Scrollable Viewport for items
+                viewport:
+                    scrollbars "vertical"
+                    mousewheel True
+                    draggable True
+                    side_yfill True # Let the viewport fill the available vertical space in the vbox
 
-                    # Iterate through items in the player's inventory
-                    for item in player.inventory:
-                        # Add a button for each item. Apply the style.
-                        # You might want NullAction() if items aren't clickable yet,
-                        # or a specific action like UseItem(item_name)
-                        $ item_id = item['id']
-                        $ item_name = next((item['name'] for item in inventory_items if item['id'] == item_id), item_id)
-                        textbutton item_name action NullAction() style "inventory_item_button"
+                    vbox:
+                        xalign 0.5 # Center items if they don't fill width
+                        spacing 8
 
-                    # OPTIONAL: Fill remaining grid slots if less than 25 items
-                    # This ensures the grid structure is visually consistent
-                    $ items_shown = len(player.inventory)
-                    $ slots_to_fill = 25 - items_shown
-                    if slots_to_fill > 0:
-                        for i in range(slots_to_fill):
-                            # Add an empty, non-interactive frame or button
-                            # Use the same size as item slots for alignment
-                            frame style "inventory_item_button": # Use the same style for size
-                                background None # Make it visually empty if needed
-                                # Or use: button style "inventory_item_button": action NullAction() sensitive False
+                        # Loop through items in player's inventory (assumes player.inventory is a list of dicts like {'id': 'apple', 'quantity': 1})
+                        for item_data in player.inventory:
+                            $ item_id = item_data['id']
+                            # Look up the item's display name from the main item list
+                            # Fallback to item_id if not found
+                            $ item_name = next((i['name'] for i in inventory_items if i['id'] == item_id), item_id.capitalize())
+                            # Potentially add quantity: $ item_display = f"{item_name} (x{item_data.get('quantity', 1)})"
 
-            # --- End of Item Grid ---
-            null height 15 # Space before the close button
-            textbutton "Fechar" action Hide("inventory_popup") xalign 0.5
-            
+                            textbutton item_name: # Use item_display if you add quantity
+                                action NullAction() # Define item interaction later (e.g., Show item details)
+                                style "inventory_item_button" # Make sure this style is defined
+                                xfill True # Make button fill viewport width
