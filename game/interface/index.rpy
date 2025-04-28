@@ -20,38 +20,6 @@ init python:
     # Define backpack icon separately as it has a different size
     renpy.image("backpack_icon", im.Scale("gui/player_stats/backpack.png", width=BACKPACK_SIZE, height=BACKPACK_SIZE))
 
-    # --- Placeholder for Inventory Item Data ---
-    # Ensure you have a list like this defined, mapping IDs to names, etc.
-    # inventory_items = [
-    #     {'id': 'apple', 'name': 'Maçã Fresca', 'description': 'Restaura um pouco de fome.'},
-    #     {'id': 'water_bottle', 'name': 'Garrafa de Água', 'description': 'Mata a sede.'},
-    #     # ... other items
-    # ]
-    pass # Keep the init python block valid if inventory_items is defined elsewhere
-
-# --- Define Styles (Make sure these exist in your styles.rpy or elsewhere) ---
-# style digital_clock_top:
-#     font "your_digital_font.ttf"
-#     size 18
-#     color "#A0A0A0"
-#
-# style digital_clock_time:
-#     font "your_digital_font.ttf"
-#     size 36
-#     color "#FFFFFF"
-#
-# style close_button_style is default: # Example inheritance
-#    properties gui.button_properties("close_button") # Use theme properties if available
-#    # Add specific overrides:
-#    size 24
-#    # ... other properties
-#
-# style inventory_item_button is default: # Example inheritance
-#    properties gui.button_properties("button") # Use theme properties if available
-#    # Add specific overrides:
-#    size 18
-#    # ... other properties
-
 # --- Player Stats Display Screen ---
 screen player_stats_display():
     tag game_ui
@@ -86,14 +54,19 @@ screen player_stats_display():
                 spacing 10 # Space between status icons
                 # Loop through needs defined in init python
                 for need_name in status_needs:
-                    bar:
-                        value player.needs[need_name] # Assumes player.needs dictionary exists
-                        range 100
+                    button:
                         xysize (STATS_SIZE, STATS_SIZE)
-                        left_bar f"status_frame_{need_name}"      # Use dynamic image name
-                        right_bar f"status_frame_dark_{need_name}" # Use dynamic image name
-                        thumb None
-                        bar_invert False # Bar fills from left to right
+                        action NullAction() # Substitua pela sua ação
+                        tooltip str(player.needs[need_name])
+                        style "empty"
+                        bar:
+                            value player.needs[need_name] # Assumes player.needs dictionary exists
+                            range 100
+                            xysize (STATS_SIZE, STATS_SIZE)
+                            left_bar f"status_frame_{need_name}"      # Use dynamic image name
+                            right_bar f"status_frame_dark_{need_name}" # Use dynamic image name
+                            thumb None
+                            bar_invert False # Bar fills from left to right
 
         # --- Top Right (Backpack Icon) ---
         imagebutton:
@@ -103,7 +76,19 @@ screen player_stats_display():
             yoffset UI_PADDING
             idle "backpack_icon"    # Use defined image name
             hover "backpack_icon"   # Same for hover (adjust if you have a hover version)
+            tooltip "Inventário"
             action Show("inventory_popup")
+
+    $ tooltip = GetTooltip()
+    if tooltip:
+
+        nearrect:
+            focus "tooltip"
+            prefer_top True
+
+            frame:
+                xalign 0.5
+                text tooltip
 
 
 # --- Inventory Popup Screen ---

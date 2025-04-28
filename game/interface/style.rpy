@@ -31,9 +31,6 @@ style inventory_item_button is default:
     text_align 0.5
 
 style empty_slot is frame:
-# Set the size to match the expected size of the 5x5 grid area
-# Calculation: (columns * item_width + (columns - 1) * grid_spacing, rows * item_height + (rows - 1) * grid_spacing)
-# Using the example values from before: (5 * 100 + 4 * 10, 5 * 50 + 4 * 10)
     xysize (540, 290)
 
     # Make the frame itself invisible, we only want it for sizing
@@ -50,3 +47,4 @@ style close_button_style is button:
     size 20                      
     color "#f00"             
     xysize (30, 30)
+    
