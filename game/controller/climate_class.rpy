@@ -3,11 +3,13 @@
 python early:
     import datetime
     import random
+    from renpy.audio import audio
 
     class WorldState:
         def __init__(self, start_hour=8):
             self.current_time = datetime.datetime(2025, 1, 1, start_hour, 0, 0)  # Year, month, day are arbitrary but required
             self.temperature = 25  # Initial temperature (Celsius) - adjust as needed
+            self.daytime = "Day"
             self.weather = "Clean" # Initial weather - can be any string you like ("Rainy", "Cloudy", etc.)
             self.weathers = ["Clean", "Cloudy", "Rainy", "Foggy"] # Weather options to randomize from (expand as needed)
 
@@ -31,12 +33,24 @@ python early:
             current_hour = self.current_time.hour
             if 6 <= current_hour < 12:  # Morning
                 self.temperature += random.randint(1, 3)
+                if self.daytime != "Day":
+                    renpy.music.stop(fadeout=2)
+                    renpy.music.play("audio/sfx/day_ambience.mp3", fadein=2, loop=True)
+                    self.daytime = "Day"
 
             elif 12 <= current_hour < 18: # Afternoon
                 self.temperature += random.randint(0, 2)
+                if self.daytime != "Day":
+                    renpy.music.stop(fadeout=2)
+                    renpy.music.play("audio/sfx/day_ambience.mp3", fadein=2, loop=True)
+                    self.daytime = "Day"
                 
             elif 18 <= current_hour < 24 or 0 <= current_hour < 6:  # Night
                 self.temperature -= random.randint(1, 3)
+                if self.daytime != "Night":
+                    renpy.music.stop(fadeout=2)
+                    renpy.music.play("audio/sfx/night_ambience.mp3", fadein=2, loop=True) # Usar renpy.music.play
+                    self.daytime = "Night"
             
             # Clamp temperature to reasonable values (avoiding too extreme shifts)
             self.temperature = min(max(self.temperature, 0), 40) # Example: Between 0 and 40 Celsius

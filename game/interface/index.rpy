@@ -24,7 +24,7 @@ init python:
 screen player_stats_display():
     tag game_ui
     zorder 10 # Ensure it's above basic layers if needed
-
+    
     fixed:
         # --- Top Left Cluster (Time + Stats) ---
         hbox:

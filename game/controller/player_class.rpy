@@ -28,12 +28,15 @@ python early:
             reduce_sanity += self.needs['hunger'] == 0 and hunger < 0 and hunger  # if hunger is 0 and negative, add hunger to reduce_sanity
             reduce_sanity += self.needs['thirst'] == 0 and thirst < 0 and thirst  # if thirst is 0 and negative, add thirst to reduce_sanity
             
+            if self.needs['sanity'] <= 0 and reduce_sanity < 0:
+                self.change_hp(reduce_sanity)
+
             self.needs['hunger'] += hunger
             self.needs['thirst'] += thirst
             self.needs['sleep'] += sleep
             self.needs['sanity'] += sanity
             self.needs['sanity'] += reduce_sanity
-            
+
             # Limit needs to 100
             self.needs['hunger'] = min(self.needs['hunger'], 100)
             self.needs['thirst'] = min(self.needs['thirst'], 100)
@@ -50,9 +53,10 @@ python early:
             self.hp += amount
             if self.hp < 0:
                 self.hp = 0
+                renpy.jump("gameover")
+
             elif self.hp > max_hp:
                 self.hp = max_hp
-            # Você pode adicionar lógica aqui para verificar se o jogador morreu (hp <= 0)
 
         def add_item(self, item_id, qty):
             found_item = False
