@@ -19,7 +19,7 @@ label camp_outside:
                     $ show_only_image("image_exercise_visual")
                     $ world_state.advance_time(minutes=30)
                     $ player.lvl_up_skills("strength", player.stats['strength'])
-                    $ player.change_needs(hunger=-5, thirst=-7, sleep=-10)
+                    $ player.change_needs(*action_costs_player.return_action_cost("distant_events_from_camp"))
                     "Você realizou exercícios físicos!"
                 else:
                     "Você se sente cansado demais para se exercitar no momento"

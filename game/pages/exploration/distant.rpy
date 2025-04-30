@@ -7,7 +7,7 @@ label exploration_distant:
             "O que fazer a seguir?"
             "Iniciar Exploração":
                 $ world_state.advance_time(minutes=90)
-                $ player.change_needs(hunger=-5, thirst=-10, sleep=-12)
+                $ player.change_needs(*action_costs_player.return_action_cost("distant_events_from_camp"))
                 $ random_event = random.choice(world_situation.distant_events)
                 $ renpy.call(random_event)
 

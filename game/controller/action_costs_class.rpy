@@ -2,7 +2,13 @@ python early:
     class Costs:
         def __init__(self):
             self.costs = {
+                "long_rest": {"hunger": -12, "thirst": -22.5, "sleep": 45, "sanity": 2},
+                "short_rest": {"hunger": -4, "thirst": -7.5, "sleep": 10, "sanity": 0},
+                "physical_exercises_in_camp": {"hunger": -5, "thirst": -7, "sleep": -10, "sanity": 0},
+
                 "surroundings_events_from_camp": {"hunger": -2, "thirst": -4, "sleep": -5, "sanity": 0},
+                "distant_events_from_camp": {"hunger": -5, "thirst": -10, "sleep": -12, "sanity": 0},
+
                 "surroundings_events_from_exploration": {"hunger": -1, "thirst": -2, "sleep": -2.5, "sanity": -1}
             }
 
