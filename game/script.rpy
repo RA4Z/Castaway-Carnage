@@ -4,6 +4,7 @@ init python:
     world_state = WorldState(8)
     world_items = World_Items()
     world_situation = World()
+    action_costs_player = Costs()
     player = Player(name="Viajante")
 
 label start:

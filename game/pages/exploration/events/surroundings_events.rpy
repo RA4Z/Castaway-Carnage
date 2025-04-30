@@ -152,7 +152,8 @@ label surroundings_event_loose_stones:
         "Você caminha com cuidado, evitando as pedras."
     jump surroundings_return # Return even if nothing happened
 
-label surroundings_return:  # Common return point for all random events
+# Ponto de retorno para todos os eventos aleatórios das redondezas
+label surroundings_return:
     if player.needs['sleep'] == 0:
         call camp_outside_faint
     menu:
@@ -163,7 +164,6 @@ label surroundings_return:  # Common return point for all random events
 
         "Continuar Explorando":
             $ world_state.advance_time(minutes=30)
-            $ player.change_needs(hunger=-1, thirst=-2, sleep=-2.5, sanity=-1)
+            $ player.change_needs(*action_costs_player.return_action_cost("surroundings_events_from_exploration"))
             $ random_event = random.choice(world_situation.surrounding_events)
             $ renpy.jump(random_event)
-            
