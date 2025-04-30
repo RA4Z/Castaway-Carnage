@@ -9,7 +9,7 @@ python early:
         def __init__(self, start_hour=8):
             self.current_time = datetime.datetime(2025, 1, 1, start_hour, 0, 0)  # Year, month, day are arbitrary but required
             self.temperature = 25  # Initial temperature (Celsius) - adjust as needed
-            self.daytime = "Day"
+            self.daytime = ""
             self.weather = "Clean" # Initial weather - can be any string you like ("Rainy", "Cloudy", etc.)
             self.weathers = ["Clean", "Cloudy", "Rainy", "Foggy"] # Weather options to randomize from (expand as needed)
 

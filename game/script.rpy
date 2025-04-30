@@ -11,8 +11,8 @@ label start:
     # python:
         # player_name = renpy.input("Qual é o seu nome?", default=player.name, length=20)
         # player.name = player_name.strip() or player.name # Atualiza o nome no objeto, usa o anterior se vazio
-    play sound "audio/sfx/day_ambience.mp3" loop
     show screen player_stats_display
+    $ world_state.advance_time()
     call camp_outside
 
     return
