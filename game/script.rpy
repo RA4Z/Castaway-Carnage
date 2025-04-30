@@ -19,6 +19,8 @@ label start:
 
 label gameover:
     hide screen player_stats_display
+    stop music
+    stop sound
     play sound "audio/sfx/game_over.mp3"
     $ show_only_image("image_game_over")
     "Fim de Jogo"
