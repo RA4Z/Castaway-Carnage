@@ -12,6 +12,24 @@ init python:
             "icon": "",
             "category": "consumables"
         },
+        {
+            "id": "River Water",
+            "name": "Água do Rio",
+            "icon": "",
+            "category": "consumables"
+        },
+        {
+            "id": "Fibrous Roots",
+            "name": "Raízes Fibrosas",
+            "icon": "",
+            "category": "consumables"
+        },
+        {
+            "id": "Bugs",
+            "name": "Insetos",
+            "icon": "",
+            "category": "consumables"
+        },
         {       # FALTA CRIAR NOS CONSUMABLES
             "id": "Wildflowers",
             "name": "Flores Silvestres",

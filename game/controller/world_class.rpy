@@ -7,16 +7,9 @@ python early:
             }
 
             self.surrounding_events = [
-                "surroundings_event_bird",
-                "surroundings_event_rabbit",
-                "surroundings_event_squirrel",
-                "surroundings_event_deer",
-                "surroundings_event_fallen_tree",
-                "surroundings_event_river",
-                "surroundings_event_cave",
-                "surroundings_event_bird_nest",
-                "surroundings_event_wildflowers",
-                "surroundings_event_loose_stones"
+                "surroundings_event_lake",
+                "surroundings_event_roots",
+                "surroundings_event_bugs"
             ]
 
             self.surroundings_cave_events = [

@@ -6,6 +6,7 @@ init python:
     world_situation = World()
     action_costs_player = Costs()
     player = Player(name="Viajante")
+    camp = Camp()
 
 label start:
     # python:

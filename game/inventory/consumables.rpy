@@ -1,23 +1,33 @@
 init python:
     inventory_consumables = [
         {
-            "id": "Honey",
-            "hunger": 5,
-            "thirst": 0,
+            "id": "River Water",
+            "hunger": 0,
+            "thirst": 25,
             "sleep": 0,
-            "sanity": 0,
+            "sanity": -3,
             "hp": 0,
             "weight": 0.2,
             "durability": -1
         },
         {
-            "id": "Eggs",
-            "hunger": 10,
-            "thirst": 0,
+            "id": "Fibrous Roots",
+            "hunger": 7,
+            "thirst": 2,
             "sleep": 0,
-            "sanity": 0,
+            "sanity": -1,
             "hp": 0,
-            "weight": 0.1,
-            "durability": 48
+            "weight": 0.2,
+            "durability": -1
+        },
+        {
+            "id": "Bugs",
+            "hunger": 10,
+            "thirst": 5,
+            "sleep": 0,
+            "sanity": -4,
+            "hp": 0,
+            "weight": 0.2,
+            "durability": -1
         }
     ]

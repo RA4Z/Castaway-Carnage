@@ -87,6 +87,7 @@ screen player_stats_display():
             prefer_top True
 
             frame:
+                background None
                 xalign 0.5
                 text tooltip
 
@@ -162,3 +163,4 @@ screen inventory_popup():
                                 action NullAction() # Define item interaction later (e.g., Show item details)
                                 style "inventory_item_button" # Make sure this style is defined
                                 xfill True # Make button fill viewport width
+                                
