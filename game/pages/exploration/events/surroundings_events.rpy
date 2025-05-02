@@ -68,6 +68,71 @@ label surroundings_event_bugs:
 
     jump surroundings_return
 
+label surroundings_event_moss:
+    "Seus olhos examinam cada superfície, cada fresta, em busca de algo que possa ser transformado em sustento."
+    "Em uma rocha sombreada e coberta de umidade, cresce uma camada espessa de musgo. Não é o verde vibrante que você esperaria, mas um tom pálido, quase cinzento, com uma textura que parece... esponjosa e fria ao toque."
+    player.name "Musgo? As pessoas comem musgo? Isso não parece certo..."
+    menu:
+        "O que fazer?"
+        "Pegar Musgos":
+            "Ele se solta facilmente da pedra em tufos úmidos. Cheira a terra molhada e algo vagamente fúngico, não exatamente podre, mas tampouco fresco."
+            "É difícil imaginar isso como comida, parece mais algo que cresceria em um túmulo esquecido."
+            player.name "Provavelmente não tem quase nenhuma caloria... e o gosto deve ser horrível. Mas... se não houver mais nada... absolutamente nada..."
+            $ player.add_item("Moss", random.randint(1, 5))
+            "Você raspa um pouco desse musgo pálido da rocha, uma sensação desagradável percorrendo seus dedos."
+        "Ignorar":
+            "A ideia de comer musgos deixa seu estômago embrulhado"
+            
+    jump surroundings_return
+
+label surroundings_event_nut:
+    "O chão da floresta é um tapete de detritos orgânicos. Seus olhos se acostumaram a procurar por formas e texturas específicas em meio ao caos."
+    "E ali, parcialmente coberta por folhas maiores, está uma. Uma noz de casca dura, familiar em sua forma arredondada e textura áspera."
+    player.name "Uma noz. Sólida. Precisa quebrar, mas tem energia aqui dentro."
+    menu:
+        "O que fazer?"
+        "Pegar Nozes":
+            $ player.add_item("Nut", random.randint(2, 3))
+            "Você as pega, sentindo o peso promissor em sua mão. Não é um banquete, mas é um alimento confiável, uma pequena reserva de gordura e proteína."
+        "Ignorar":
+            "A preguiça de tentar quebrá-las o desanima, você dá de ombros e se afasta das nozes"
+
+    jump surroundings_return
+
+label surroundings_event_egg:
+    "Um chilrear baixo e repetitivo chama sua atenção para os galhos mais baixos de uma árvore retorcida."
+    "Você se aproxima com cautela, tentando não assustar o que quer que esteja ali."
+    "Aninhado entre folhas e pequenos galhos, um ninho tosco. Dentro, repousa um único ovo, de casca salpicada e ainda ligeiramente morno."
+    menu:
+        "O que fazer?"
+        "Pegar Ovo":
+            $ player.add_item("Egg", 1)
+            player.name "Um ovo! O pássaro não deve estar longe... Desculpe, pequeno. Eu preciso mais do que você agora."
+            "Com mãos cuidadosas, você retira o ovo do ninho. É surpreendentemente pesado, a promessa de sustento contida em sua casca frágil."
+            player.name "Cru não é o ideal... mas cozido seria perfeito. Preciso de fogo."
+            "Você protege o ovo enquanto o guarda, um recurso valioso neste lugar implacável."
+        "Ignorar":
+            "Pensar na ideia de pegar um ovo te desanima, você sente um pesar no fundo da alma, igual a um vegano otário"
+
+    jump surroundings_return
+
+label surroundings_event_fruits:
+    "Em meio ao verde monótono da mata, um toque de cor vibrante se destaca: um aglomerado de pequenas frutas vermelhas e brilhantes crescendo em um arbusto baixo e espinhoso."
+    "Você se aproxima, tomando cuidado com os espinhos afiados."
+    "As frutas são pequenas, quase como contas lustrosas. Parecem suculentas."
+    player.name "Frutas... Parecem boas. Doces, talvez? Seria bom sentir um gosto diferente de terra e desespero."
+    menu:
+        "O que fazer?"
+        "Pegar Frutas":
+            "Você colhe um punhado delas com cuidado, sentindo a pele fina sob os dedos. Algumas se rompem levemente, liberando um sumo adocicado e um pouco ácido."
+            player.name "Um pouco de água nelas também. Excelente."
+            $ player.add_item("Red Fruit", random.randint(3, 7))
+        "Ignorar":
+            "A preguiça é maior do que a vontade de pegar as frutas, você então abandona a ideia"
+
+    jump surroundings_return
+
+
 # Ponto de retorno para todos os eventos aleatórios das redondezas
 label surroundings_return:
     if player.needs['sleep'] == 0:

@@ -9,7 +9,11 @@ python early:
             self.surrounding_events = [
                 "surroundings_event_lake",
                 "surroundings_event_roots",
-                "surroundings_event_bugs"
+                "surroundings_event_bugs",
+                "surroundings_event_moss",
+                "surroundings_event_nut",
+                "surroundings_event_egg",
+                "surroundings_event_fruits"
             ]
 
             self.surroundings_cave_events = [

@@ -7,8 +7,8 @@ init python:
             "category": "consumables"
         },
         {
-            "id": "Eggs",
-            "name": "Ovos",
+            "id": "Egg",
+            "name": "Ovo",
             "icon": "",
             "category": "consumables"
         },
@@ -27,6 +27,24 @@ init python:
         {
             "id": "Bugs",
             "name": "Insetos",
+            "icon": "",
+            "category": "consumables"
+        },
+        {
+            "id": "Moss",
+            "name": "Musgo",
+            "icon": "",
+            "category": "consumables"
+        },
+        {
+            "id": "Nut",
+            "name": "Noz",
+            "icon": "",
+            "category": "consumables"
+        },
+        {
+            "id": "Red Fruit",
+            "name": "Fruta Vermelha",
             "icon": "",
             "category": "consumables"
         },

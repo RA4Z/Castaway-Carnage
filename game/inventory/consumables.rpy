@@ -29,5 +29,35 @@ init python:
             "hp": 0,
             "weight": 0.2,
             "durability": -1
+        },
+        {
+            "id": "Moss",
+            "hunger": 2,
+            "thirst": 6,
+            "sleep": 0,
+            "sanity": -3,
+            "hp": 0,
+            "weight": 0.2,
+            "durability": -1
+        },
+        {
+            "id": "Egg",
+            "hunger": 20,
+            "thirst": 7,
+            "sleep": 0,
+            "sanity": 0,
+            "hp": 0,
+            "weight": 0.2,
+            "durability": -1
+        },
+        {
+            "id": "Red Fruit",
+            "hunger": 12,
+            "thirst": 5,
+            "sleep": 0,
+            "sanity": 1,
+            "hp": 0,
+            "weight": 0.2,
+            "durability": -1
         }
     ]
