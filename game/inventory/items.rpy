@@ -48,6 +48,18 @@ init python:
             "icon": "",
             "category": "consumables"
         },
+        {
+            "id": "Suspect Mushroom",
+            "name": "Cogumelo Suspeito",
+            "icon": "",
+            "category": "consumables"
+        },
+        {
+            "id": "Rotten Fruit",
+            "name": "Fruta Estragada",
+            "icon": "",
+            "category": "consumables"
+        },
         {       # FALTA CRIAR NOS CONSUMABLES
             "id": "Wildflowers",
             "name": "Flores Silvestres",

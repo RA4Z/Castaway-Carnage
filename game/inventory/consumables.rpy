@@ -59,5 +59,25 @@ init python:
             "hp": 0,
             "weight": 0.2,
             "durability": -1
+        },
+        {
+            "id": "Suspect Mushroom",
+            "hunger": 20,
+            "thirst": 6,
+            "sleep": 0,
+            "sanity": -15, # Escolher algo entre -15 e -2
+            "hp": 0,
+            "weight": 0.2,
+            "durability": -1
+        },
+        {
+            "id": "Rotten Fruit",
+            "hunger": 15,
+            "thirst": 5,
+            "sleep": 0,
+            "sanity": -5,
+            "hp": 0,
+            "weight": 0.2,
+            "durability": -1
         }
     ]
