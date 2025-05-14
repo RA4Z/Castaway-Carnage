@@ -52,6 +52,7 @@ label surroundings_event_day_complete_silence:
     player.name "Isso não é normal... O que aconteceu? Onde foram todos os sons?"
     "Quando os ruídos da mata retornam gradualmente, eles soam estranhamente artificiais por um momento, e a sensação de que algo fundamental está errado permanece com você."
     $ player.change_needs(*action_costs_player.return_action_cost("surroundings_event_day_complete_silence"))
+    jump surroundings_return
 
 
 label surroundings_event_day_goodbird:
@@ -61,6 +62,7 @@ label surroundings_event_day_goodbird:
     "A melodia simples lava um pouco da tensão acumulada em seus ombros."
     "Um breve momento de serenidade."
     $ player.change_needs(*action_costs_player.return_action_cost("surroundings_event_day_goodbird"))
+    jump surroundings_return
 
 
 label surroundings_event_day_butterfly:
@@ -70,4 +72,5 @@ label surroundings_event_day_butterfly:
     "O pequeno momento de conexão inesperada com outra criatura viva, um momento de confiança mútua e beleza natural, aquece algo dentro de você que você pensou ter congelado."
     "Uma faísca de calor em meio ao frio."
     $ player.change_needs(*action_costs_player.return_action_cost("surroundings_event_day_butterfly"))
+    jump surroundings_return
 
