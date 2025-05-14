@@ -16,6 +16,13 @@ python early:
                 "surroundings_event_fruits"
             ]
 
+            self.surrounding_events_day = [
+                "surroundings_event_day_branch_breaking",
+                "surroundings_event_day_complete_silence",
+                "surroundings_event_day_goodbird",
+                "surroundings_event_day_butterfly"
+            ]
+
             self.surroundings_cave_events = [
                 "surroundings_cave_event_exploration_empty_cave",
                 "surroundings_cave_event_exploration_bear_cave"
