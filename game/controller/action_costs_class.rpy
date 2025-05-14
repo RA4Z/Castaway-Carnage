@@ -9,7 +9,12 @@ python early:
                 "surroundings_events_from_camp": {"hunger": -2, "thirst": -4, "sleep": -5, "sanity": 0},
                 "distant_events_from_camp": {"hunger": -5, "thirst": -10, "sleep": -12, "sanity": 0},
 
-                "surroundings_events_from_exploration": {"hunger": -1, "thirst": -2, "sleep": -2.5, "sanity": -1}
+                "surroundings_events_from_exploration": {"hunger": -1, "thirst": -2, "sleep": -2.5, "sanity": -1},
+
+                "surroundings_event_day_branch_breaking": {"hunger": 0, "thirst": 0, "sleep": 0, "sanity": -5},
+                "surroundings_event_day_complete_silence": {"hunger": 0, "thirst": 0, "sleep": 0, "sanity": -9},
+                "surroundings_event_day_goodbird": {"hunger": 0, "thirst": 0, "sleep": 0, "sanity": 4},
+                "surroundings_event_day_butterfly": {"hunger": 0, "thirst": 0, "sleep": 0, "sanity": 8}
             }
 
         def return_action_cost(self, event_name, extra_hunger=0, extra_thirst=0, extra_sleep=0, extra_sanity=0):
